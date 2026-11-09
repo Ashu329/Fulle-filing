@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HP Fuel Station - Workers Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-badge">⛽</div>
+      <div>
+        <h1>HP Fuel Station</h1>
+        <p>Workers Dashboard</p>
+      </div>
+    </div>
+    <div class="clock">
+      <div id="dateText"></div>
+      <div id="timeText"></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Summary cards -->
+    <section class="kpis">
+      <div class="kpi kpi-blue"><span>👷 Workers</span><strong id="kpiWorkers">0</strong></div>
+      <div class="kpi kpi-purple"><span>🚗 Vehicles Served</span><strong id="kpiVehicles">0</strong></div>
+      <div class="kpi kpi-orange"><span>⛽ Petrol (L)</span><strong id="kpiPetrol">0</strong></div>
+      <div class="kpi kpi-teal"><span>🛢️ Diesel (L)</span><strong id="kpiDiesel">0</strong></div>
+      <div class="kpi kpi-red"><span>📊 Total Fuel (L)</span><strong id="kpiLitres">0</strong></div>
+      <div class="kpi kpi-green"><span>💰 Total Sales</span><strong id="kpiSales">₹0</strong></div>
+    </section>
+
+    <!-- Worker-wise table -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Worker-wise Work</h2>
+        <div class="controls">
+          <input type="search" id="searchInput" placeholder="Search worker or pump...">
+          <select id="shiftFilter">
+            <option value="all">All shifts</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Night</option>
+          </select>
+          <select id="sortBy">
+            <option value="total">Sort: Most fuel</option>
+            <option value="sales">Sort: Most sales</option>
+            <option value="vehicles">Sort: Most vehicles</option>
+            <option value="name">Sort: Name (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Worker</th>
+              <th>Shift</th>
+              <th>Pump</th>
+              <th class="num">Vehicles</th>
+              <th class="num">Petrol (L)</th>
+              <th class="num">Diesel (L)</th>
+              <th class="num">Total (L)</th>
+              <th class="num">Sales (₹)</th>
+              <th>Share</th>
+            </tr>
+          </thead>
+          <tbody id="workersBody"></tbody>
+          <tfoot id="workersFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- Add entry + recent activity -->
+    <section class="grid-2">
+      <div class="card">
+        <h2>➕ Add Fuel Entry</h2>
+        <form id="entryForm" class="form">
+          <label>Worker
+            <select id="entryWorker" required></select>
+          </label>
+          <label>Fuel type
+            <select id="entryFuel">
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+            </select>
+          </label>
+          <label>Litres
+            <input type="number" id="entryLitres" min="0.1" max="500" step="0.1" placeholder="e.g. 10" required>
+          </label>
+          <p class="hint" id="amountPreview">Amount: ₹0.00</p>
+          <button type="submit" class="btn">Add Entry</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🕒 Recent Activity</h2>
+        <ul id="activityList" class="activity"></ul>
+      </div>
+    </section>
+
+    <!-- Add worker -->
+    <section class="card">
+      <h2>👷 Add New Worker</h2>
+      <form id="workerForm" class="form form-row">
+        <label>Name
+          <input type="text" id="workerName" maxlength="40" placeholder="Worker name" required>
+        </label>
+        <label>Shift
+          <select id="workerShift">
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Night</option>
+          </select>
+        </label>
+        <label>Pump
+          <input type="text" id="workerPump" maxlength="20" placeholder="e.g. Pump 7" required>
+        </label>
+        <button type="submit" class="btn">Add Worker</button>
+      </form>
+      <button id="resetBtn" class="btn btn-ghost" type="button">Reset demo data</button>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <footer class="footer">
+    Fuel prices: Petrol <span id="pricePetrol"></span>/L · Diesel <span id="priceDiesel"></span>/L
+    (change them at the top of script.js)
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
